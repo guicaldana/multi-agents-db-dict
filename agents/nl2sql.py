@@ -1,0 +1,1 @@
+# Agente responsável por traduzir a linguagem natural escrita pelo usuário para SQL
