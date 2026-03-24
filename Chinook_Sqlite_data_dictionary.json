@@ -1,0 +1,1351 @@
+{
+  "request": "Gerar um dicionario de dados com foco em colunas e relacionamentos.",
+  "interpretation": "Priorizar consultas sobre chaves estrangeiras e cardinalidade.",
+  "database_mode": "sqlite",
+  "database_label": "Chinook_Sqlite",
+  "execution_trace": [
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_schema"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "MapRelationships",
+      "action": "map_relationships"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "explain_request"
+    },
+    {
+      "sender": "Main",
+      "target": "Executer",
+      "action": "database_mode"
+    },
+    {
+      "sender": "Main",
+      "target": "Executer",
+      "action": "database_label"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "DiscoverSchema",
+      "action": "describe_table"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "NL2SQL",
+      "action": "build_metadata_query"
+    },
+    {
+      "sender": "Orchestrator",
+      "target": "BuildDictionary",
+      "action": "build_dictionary"
+    }
+  ],
+  "tables": [
+    {
+      "table_name": "Album",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Album' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "AlbumId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Title",
+          "type": "NVARCHAR(160)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "ArtistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "Album",
+          "source_column": "ArtistId",
+          "target_table": "Artist",
+          "target_column": "ArtistId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    },
+    {
+      "table_name": "Artist",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Artist' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "ArtistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "Customer",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Customer' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "CustomerId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "FirstName",
+          "type": "NVARCHAR(40)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "LastName",
+          "type": "NVARCHAR(20)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Company",
+          "type": "NVARCHAR(80)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Address",
+          "type": "NVARCHAR(70)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "City",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "State",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Country",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "PostalCode",
+          "type": "NVARCHAR(10)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Phone",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Fax",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Email",
+          "type": "NVARCHAR(60)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "SupportRepId",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "Customer",
+          "source_column": "SupportRepId",
+          "target_table": "Employee",
+          "target_column": "EmployeeId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    },
+    {
+      "table_name": "Employee",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Employee' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "EmployeeId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "LastName",
+          "type": "NVARCHAR(20)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "FirstName",
+          "type": "NVARCHAR(20)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Title",
+          "type": "NVARCHAR(30)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "ReportsTo",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "BirthDate",
+          "type": "DATETIME",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "HireDate",
+          "type": "DATETIME",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Address",
+          "type": "NVARCHAR(70)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "City",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "State",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Country",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "PostalCode",
+          "type": "NVARCHAR(10)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Phone",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Fax",
+          "type": "NVARCHAR(24)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Email",
+          "type": "NVARCHAR(60)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "Employee",
+          "source_column": "ReportsTo",
+          "target_table": "Employee",
+          "target_column": "EmployeeId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    },
+    {
+      "table_name": "Genre",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Genre' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "GenreId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "Invoice",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Invoice' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "InvoiceId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "CustomerId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "InvoiceDate",
+          "type": "DATETIME",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "BillingAddress",
+          "type": "NVARCHAR(70)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "BillingCity",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "BillingState",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "BillingCountry",
+          "type": "NVARCHAR(40)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "BillingPostalCode",
+          "type": "NVARCHAR(10)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Total",
+          "type": "NUMERIC(10,2)",
+          "nullable": false,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "Invoice",
+          "source_column": "CustomerId",
+          "target_table": "Customer",
+          "target_column": "CustomerId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    },
+    {
+      "table_name": "InvoiceLine",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'InvoiceLine' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "InvoiceLineId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "InvoiceId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "UnitPrice",
+          "type": "NUMERIC(10,2)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Quantity",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "InvoiceLine",
+          "source_column": "TrackId",
+          "target_table": "Track",
+          "target_column": "TrackId",
+          "relationship_type": "many-to-one"
+        },
+        {
+          "source_table": "InvoiceLine",
+          "source_column": "InvoiceId",
+          "target_table": "Invoice",
+          "target_column": "InvoiceId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    },
+    {
+      "table_name": "MediaType",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'MediaType' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "MediaTypeId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "Playlist",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Playlist' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(120)",
+          "nullable": true,
+          "description": ""
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "PlaylistTrack",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'PlaylistTrack' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "PlaylistTrack",
+          "source_column": "TrackId",
+          "target_table": "Track",
+          "target_column": "TrackId",
+          "relationship_type": "many-to-one"
+        },
+        {
+          "source_table": "PlaylistTrack",
+          "source_column": "PlaylistId",
+          "target_table": "Playlist",
+          "target_column": "PlaylistId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    },
+    {
+      "table_name": "Track",
+      "description": "",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Track' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "TrackId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Name",
+          "type": "NVARCHAR(200)",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "AlbumId",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "MediaTypeId",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "GenreId",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Composer",
+          "type": "NVARCHAR(220)",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "Milliseconds",
+          "type": "INTEGER",
+          "nullable": false,
+          "description": ""
+        },
+        {
+          "name": "Bytes",
+          "type": "INTEGER",
+          "nullable": true,
+          "description": ""
+        },
+        {
+          "name": "UnitPrice",
+          "type": "NUMERIC(10,2)",
+          "nullable": false,
+          "description": ""
+        }
+      ],
+      "relationships": [
+        {
+          "source_table": "Track",
+          "source_column": "MediaTypeId",
+          "target_table": "MediaType",
+          "target_column": "MediaTypeId",
+          "relationship_type": "many-to-one"
+        },
+        {
+          "source_table": "Track",
+          "source_column": "GenreId",
+          "target_table": "Genre",
+          "target_column": "GenreId",
+          "relationship_type": "many-to-one"
+        },
+        {
+          "source_table": "Track",
+          "source_column": "AlbumId",
+          "target_table": "Album",
+          "target_column": "AlbumId",
+          "relationship_type": "many-to-one"
+        }
+      ]
+    }
+  ],
+  "data_dictionary": [
+    {
+      "table_name": "Album",
+      "technical_description": "",
+      "business_description": "Armazena registros de Album e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela Album possui 3 colunas e 1 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Album' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "AlbumId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Album."
+        },
+        {
+          "name": "Title",
+          "data_type": "NVARCHAR(160)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Album."
+        },
+        {
+          "name": "ArtistId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Album."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "Artist",
+          "source_column": "ArtistId",
+          "target_column": "ArtistId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Album se relaciona com Artist por meio de ArtistId -> ArtistId."
+        }
+      ]
+    },
+    {
+      "table_name": "Artist",
+      "technical_description": "",
+      "business_description": "Armazena os dados principais da entidade Artist.",
+      "table_summary": "A tabela Artist possui 2 colunas e 0 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Artist' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "ArtistId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Artist."
+        },
+        {
+          "name": "Name",
+          "data_type": "NVARCHAR(120)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Artist."
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "Customer",
+      "technical_description": "",
+      "business_description": "Armazena registros de Customer e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela Customer possui 13 colunas e 1 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Customer' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "CustomerId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Customer."
+        },
+        {
+          "name": "FirstName",
+          "data_type": "NVARCHAR(40)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "LastName",
+          "data_type": "NVARCHAR(20)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "Company",
+          "data_type": "NVARCHAR(80)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "Address",
+          "data_type": "NVARCHAR(70)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "City",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "State",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "Country",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "PostalCode",
+          "data_type": "NVARCHAR(10)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "Phone",
+          "data_type": "NVARCHAR(24)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "Fax",
+          "data_type": "NVARCHAR(24)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "Email",
+          "data_type": "NVARCHAR(60)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Customer."
+        },
+        {
+          "name": "SupportRepId",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Customer."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "Employee",
+          "source_column": "SupportRepId",
+          "target_column": "EmployeeId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Customer se relaciona com Employee por meio de SupportRepId -> EmployeeId."
+        }
+      ]
+    },
+    {
+      "table_name": "Employee",
+      "technical_description": "",
+      "business_description": "Armazena registros de Employee e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela Employee possui 15 colunas e 1 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Employee' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "EmployeeId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Employee."
+        },
+        {
+          "name": "LastName",
+          "data_type": "NVARCHAR(20)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "FirstName",
+          "data_type": "NVARCHAR(20)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "Title",
+          "data_type": "NVARCHAR(30)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "ReportsTo",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "role": "foreign_key",
+          "description": "Chave de referencia usada para conectar Employee a outra tabela."
+        },
+        {
+          "name": "BirthDate",
+          "data_type": "DATETIME",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "HireDate",
+          "data_type": "DATETIME",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "Address",
+          "data_type": "NVARCHAR(70)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "City",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "State",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "Country",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "PostalCode",
+          "data_type": "NVARCHAR(10)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "Phone",
+          "data_type": "NVARCHAR(24)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "Fax",
+          "data_type": "NVARCHAR(24)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        },
+        {
+          "name": "Email",
+          "data_type": "NVARCHAR(60)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Employee."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "Employee",
+          "source_column": "ReportsTo",
+          "target_column": "EmployeeId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Employee se relaciona com Employee por meio de ReportsTo -> EmployeeId."
+        }
+      ]
+    },
+    {
+      "table_name": "Genre",
+      "technical_description": "",
+      "business_description": "Armazena os dados principais da entidade Genre.",
+      "table_summary": "A tabela Genre possui 2 colunas e 0 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Genre' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "GenreId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Genre."
+        },
+        {
+          "name": "Name",
+          "data_type": "NVARCHAR(120)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Genre."
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "Invoice",
+      "technical_description": "",
+      "business_description": "Armazena registros de Invoice e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela Invoice possui 9 colunas e 1 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Invoice' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "InvoiceId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Invoice."
+        },
+        {
+          "name": "CustomerId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Invoice."
+        },
+        {
+          "name": "InvoiceDate",
+          "data_type": "DATETIME",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        },
+        {
+          "name": "BillingAddress",
+          "data_type": "NVARCHAR(70)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        },
+        {
+          "name": "BillingCity",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        },
+        {
+          "name": "BillingState",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        },
+        {
+          "name": "BillingCountry",
+          "data_type": "NVARCHAR(40)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        },
+        {
+          "name": "BillingPostalCode",
+          "data_type": "NVARCHAR(10)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        },
+        {
+          "name": "Total",
+          "data_type": "NUMERIC(10,2)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Invoice."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "Customer",
+          "source_column": "CustomerId",
+          "target_column": "CustomerId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Invoice se relaciona com Customer por meio de CustomerId -> CustomerId."
+        }
+      ]
+    },
+    {
+      "table_name": "InvoiceLine",
+      "technical_description": "",
+      "business_description": "Armazena registros de InvoiceLine e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela InvoiceLine possui 5 colunas e 2 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'InvoiceLine' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "InvoiceLineId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de InvoiceLine."
+        },
+        {
+          "name": "InvoiceId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de InvoiceLine."
+        },
+        {
+          "name": "TrackId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de InvoiceLine."
+        },
+        {
+          "name": "UnitPrice",
+          "data_type": "NUMERIC(10,2)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela InvoiceLine."
+        },
+        {
+          "name": "Quantity",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela InvoiceLine."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "Track",
+          "source_column": "TrackId",
+          "target_column": "TrackId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de InvoiceLine se relaciona com Track por meio de TrackId -> TrackId."
+        },
+        {
+          "target_table": "Invoice",
+          "source_column": "InvoiceId",
+          "target_column": "InvoiceId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de InvoiceLine se relaciona com Invoice por meio de InvoiceId -> InvoiceId."
+        }
+      ]
+    },
+    {
+      "table_name": "MediaType",
+      "technical_description": "",
+      "business_description": "Armazena os dados principais da entidade MediaType.",
+      "table_summary": "A tabela MediaType possui 2 colunas e 0 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'MediaType' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "MediaTypeId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de MediaType."
+        },
+        {
+          "name": "Name",
+          "data_type": "NVARCHAR(120)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela MediaType."
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "Playlist",
+      "technical_description": "",
+      "business_description": "Armazena os dados principais da entidade Playlist.",
+      "table_summary": "A tabela Playlist possui 2 colunas e 0 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Playlist' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Playlist."
+        },
+        {
+          "name": "Name",
+          "data_type": "NVARCHAR(120)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Playlist."
+        }
+      ],
+      "relationships": []
+    },
+    {
+      "table_name": "PlaylistTrack",
+      "technical_description": "",
+      "business_description": "Armazena registros de PlaylistTrack e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela PlaylistTrack possui 2 colunas e 2 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'PlaylistTrack' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "PlaylistId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de PlaylistTrack."
+        },
+        {
+          "name": "TrackId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de PlaylistTrack."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "Track",
+          "source_column": "TrackId",
+          "target_column": "TrackId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de PlaylistTrack se relaciona com Track por meio de TrackId -> TrackId."
+        },
+        {
+          "target_table": "Playlist",
+          "source_column": "PlaylistId",
+          "target_column": "PlaylistId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de PlaylistTrack se relaciona com Playlist por meio de PlaylistId -> PlaylistId."
+        }
+      ]
+    },
+    {
+      "table_name": "Track",
+      "technical_description": "",
+      "business_description": "Armazena registros de Track e conecta essa entidade a outras partes do dominio por meio de relacionamentos mapeados.",
+      "table_summary": "A tabela Track possui 9 colunas e 3 relacionamentos identificados.",
+      "metadata_query": "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = 'Track' ORDER BY ordinal_position;",
+      "columns": [
+        {
+          "name": "TrackId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Track."
+        },
+        {
+          "name": "Name",
+          "data_type": "NVARCHAR(200)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Track."
+        },
+        {
+          "name": "AlbumId",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Track."
+        },
+        {
+          "name": "MediaTypeId",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Track."
+        },
+        {
+          "name": "GenreId",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "role": "primary_key",
+          "description": "Identificador principal usado para distinguir registros de Track."
+        },
+        {
+          "name": "Composer",
+          "data_type": "NVARCHAR(220)",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Track."
+        },
+        {
+          "name": "Milliseconds",
+          "data_type": "INTEGER",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Track."
+        },
+        {
+          "name": "Bytes",
+          "data_type": "INTEGER",
+          "nullable": true,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Track."
+        },
+        {
+          "name": "UnitPrice",
+          "data_type": "NUMERIC(10,2)",
+          "nullable": false,
+          "role": "attribute",
+          "description": "Atributo informacional da tabela Track."
+        }
+      ],
+      "relationships": [
+        {
+          "target_table": "MediaType",
+          "source_column": "MediaTypeId",
+          "target_column": "MediaTypeId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Track se relaciona com MediaType por meio de MediaTypeId -> MediaTypeId."
+        },
+        {
+          "target_table": "Genre",
+          "source_column": "GenreId",
+          "target_column": "GenreId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Track se relaciona com Genre por meio de GenreId -> GenreId."
+        },
+        {
+          "target_table": "Album",
+          "source_column": "AlbumId",
+          "target_column": "AlbumId",
+          "relationship_type": "many-to-one",
+          "description": "Cada registro de Track se relaciona com Album por meio de AlbumId -> AlbumId."
+        }
+      ]
+    }
+  ],
+  "database_url_configured": true
+}
