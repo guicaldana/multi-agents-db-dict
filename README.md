@@ -9,6 +9,10 @@ O principio central do projeto e que cada agente trabalha isolado na sua propria
 especialidade e so chama outro agente quando precisa de uma capacidade externa ao
 seu dominio.
 
+O arquivo `main.py` atua apenas como bootstrap da rede local de agentes. Ele nao
+e tratado como agente de negocio e, por isso, nao deve aparecer como chamador na
+trilha A2A final.
+
 ## Agentes
 
 - `Orchestrator`: coordena os demais agentes e consolida a resposta final, sem executar trabalho especializado.
@@ -22,7 +26,8 @@ seu dominio.
 
 - `agents/executer.py`: servidor MCP e agente de execucao fisica do banco.
 - `agents/discover_schema.py`: agente especializado em schema, consumindo o `Executer` via A2A.
-- `agents/runtime.py`: adaptadores leves e contratos basicos de mensagens A2A.
+- `agents/runtime.py`: adaptadores leves para ADK e MCP quando as bibliotecas nao estiverem disponiveis.
+- `agents/a2a_integration.py`: camada local que usa os tipos oficiais da biblioteca A2A para troca de mensagens.
 - `agents/map_relationships.py`: agente especializado em relacionamentos, tambem consumindo o `Executer` via A2A.
 - `agents/nl2sql.py`: agente especializado em traducao para SQL de metadados.
 - `agents/build_dictionary.py`: agente especializado em enriquecer o resultado com descricoes semanticas.
@@ -38,7 +43,11 @@ Instale as dependencias e rode:
 python main.py
 ```
 
-A saida agora inclui uma trilha de execucao em `execution_trace`, mostrando quais agentes foram usados e em qual ordem. Alem disso, o resultado completo e salvo automaticamente em um arquivo JSON com nome derivado do banco atual, por exemplo `chinook_data_dictionary.json`.
+A saida principal fica focada no dicionario de dados propriamente dito. Os artefatos gerados sao separados:
+
+- `*_data_dictionary.json`: somente o dicionario final;
+- `*_execution_trace.json`: trilha tecnica completa das chamadas entre agentes;
+- `*_execution_path.json`: trilha legivel em linguagem natural.
 
 Se quiser testar com um PostgreSQL real, configure a variavel `DATABASE_URL` antes de executar:
 
@@ -93,7 +102,7 @@ Para o caso do Chinook, a opcao mais pratica e usar a versao SQLite local, porqu
 
 ## Evolucao para A2A real
 
-Hoje o projeto usa `A2AClient` local para simular a troca de mensagens entre agentes sem depender de rede. Para migrar para um transporte A2A real, o caminho recomendado e:
+Hoje o projeto ja usa os tipos oficiais da biblioteca A2A, mas ainda com transporte local em memoria. Para migrar para um transporte A2A distribuido real, o caminho recomendado e:
 
 - expor cada `handle_a2a_message` como endpoint ou worker independente;
 - trocar o `handler` local por um cliente HTTP, RPC ou fila;

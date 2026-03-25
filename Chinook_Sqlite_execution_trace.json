@@ -1,0 +1,142 @@
+[
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_schema"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "MapRelationships",
+    "action": "map_relationships"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "explain_request"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "Executer",
+    "action": "database_mode"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "Executer",
+    "action": "database_label"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "DiscoverSchema",
+    "action": "describe_table"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "NL2SQL",
+    "action": "build_metadata_query"
+  },
+  {
+    "sender": "Orchestrator",
+    "target": "BuildDictionary",
+    "action": "build_dictionary"
+  }
+]

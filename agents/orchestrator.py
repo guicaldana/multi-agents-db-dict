@@ -8,7 +8,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from agents.runtime import A2AClient, A2AMessage, Agent
+from agents.a2a_integration import A2AEnvelope, LocalA2AClient
+from agents.runtime import Agent
 
 
 ORCHESTRATOR_INSTRUCTIONS = """
@@ -23,11 +24,11 @@ class DataDictionaryOrchestrator:
 
     def __init__(
         self,
-        discover_schema_client: A2AClient,
-        map_relationships_client: A2AClient,
-        nl2sql_client: A2AClient,
-        build_dictionary_client: A2AClient,
-        executer_client: A2AClient,
+        discover_schema_client: LocalA2AClient,
+        map_relationships_client: LocalA2AClient,
+        nl2sql_client: LocalA2AClient,
+        build_dictionary_client: LocalA2AClient,
+        executer_client: LocalA2AClient,
     ) -> None:
         self.discover_schema_client = discover_schema_client
         self.map_relationships_client = map_relationships_client
@@ -80,14 +81,26 @@ class DataDictionaryOrchestrator:
             "database_mode": database_mode,
             "database_label": database_label,
             "execution_trace": trace,
+            "execution_path": self._build_execution_path(trace),
             "tables": tables,
             "data_dictionary": dictionary_payload["dictionary"],
         }
 
-    def handle_a2a_message(self, message: A2AMessage) -> Any:
+    def handle_a2a_message(self, message: A2AEnvelope) -> Any:
         if message.action == "generate_data_dictionary":
             return self.generate_data_dictionary(message.payload["user_request"])
         raise ValueError(f"Acao A2A desconhecida para Orchestrator: {message.action}")
+
+    def _build_execution_path(self, trace: list[dict[str, str]]) -> list[str]:
+        readable_steps: list[str] = []
+        for index, step in enumerate(trace, start=1):
+            sender = step["sender"]
+            target = step["target"]
+            action = step["action"]
+            readable_steps.append(
+                f"{index}. {sender} chamou {target} para executar '{action}'"
+            )
+        return readable_steps
 
 
 orchestrator_agent = Agent(

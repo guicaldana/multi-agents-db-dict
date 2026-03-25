@@ -16,7 +16,8 @@ from urllib.parse import urlparse
 
 import psycopg2
 
-from agents.runtime import A2AMessage, FastMCP
+from agents.a2a_integration import A2AEnvelope
+from agents.runtime import FastMCP
 
 
 # Catalogo local usado como fallback para desenvolvimento e testes offline.
@@ -330,7 +331,7 @@ class ExecuterService:
     def list_relationships(self) -> list[dict[str, str]]:
         return self.gateway.list_relationships()
 
-    def handle_a2a_message(self, message: A2AMessage) -> Any:
+    def handle_a2a_message(self, message: A2AEnvelope) -> Any:
         """Recebe chamadas A2A e as traduz para operacoes MCP do Executer."""
         if message.action == "database_mode":
             return self.database_mode()

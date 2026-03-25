@@ -8,7 +8,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from agents.runtime import A2AMessage, Agent
+from agents.a2a_integration import A2AEnvelope
+from agents.runtime import Agent
 
 
 NL2SQL_INSTRUCTIONS = """
@@ -39,7 +40,7 @@ class NL2SQLService:
             "ORDER BY ordinal_position;"
         )
 
-    def handle_a2a_message(self, message: A2AMessage) -> Any:
+    def handle_a2a_message(self, message: A2AEnvelope) -> Any:
         if message.action == "explain_request":
             return self.explain_request(message.payload["user_request"])
         if message.action == "build_metadata_query":

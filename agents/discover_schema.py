@@ -8,7 +8,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from agents.runtime import A2AClient, A2AMessage, Agent
+from agents.a2a_integration import A2AEnvelope, LocalA2AClient
+from agents.runtime import Agent
 
 
 DISCOVER_SCHEMA_INSTRUCTIONS = """
@@ -22,29 +23,55 @@ para os outros agentes.
 class DiscoverSchemaService:
     """Servico do agente DiscoverSchema, isolado da implementacao do Executer."""
 
-    def __init__(self, executer_client: A2AClient) -> None:
+    def __init__(self, executer_client: LocalA2AClient) -> None:
         self.executer_client = executer_client
 
-    def list_tables(self) -> list[str]:
-        return self.executer_client.call("list_tables")
+    def list_tables(self, trace: list[dict[str, str]] | None = None) -> list[str]:
+        payload: dict[str, object] = {}
+        if trace is not None:
+            payload["trace"] = trace
+        return self.executer_client.call("list_tables", **payload)
 
-    def list_columns(self, table_name: str) -> list[dict[str, Any]]:
-        return self.executer_client.call("list_columns", table_name=table_name)
+    def list_columns(
+        self,
+        table_name: str,
+        trace: list[dict[str, str]] | None = None,
+    ) -> list[dict[str, Any]]:
+        payload: dict[str, object] = {"table_name": table_name}
+        if trace is not None:
+            payload["trace"] = trace
+        return self.executer_client.call("list_columns", **payload)
 
-    def describe_table(self, table_name: str) -> dict[str, Any]:
-        return self.executer_client.call("describe_table", table_name=table_name)
+    def describe_table(
+        self,
+        table_name: str,
+        trace: list[dict[str, str]] | None = None,
+    ) -> dict[str, Any]:
+        payload: dict[str, object] = {"table_name": table_name}
+        if trace is not None:
+            payload["trace"] = trace
+        return self.executer_client.call("describe_table", **payload)
 
-    def describe_schema(self) -> dict[str, list[dict[str, Any]]]:
+    def describe_schema(
+        self,
+        trace: list[dict[str, str]] | None = None,
+    ) -> dict[str, list[dict[str, Any]]]:
         return {
-            table_name: self.list_columns(table_name)
-            for table_name in self.list_tables()
+            table_name: self.list_columns(table_name, trace=trace)
+            for table_name in self.list_tables(trace=trace)
         }
 
-    def handle_a2a_message(self, message: A2AMessage) -> Any:
+    def handle_a2a_message(self, message: A2AEnvelope) -> Any:
+        trace = message.payload.get("trace")
         if message.action == "describe_schema":
-            return self.describe_schema()
+            return self.describe_schema(
+                trace=trace if isinstance(trace, list) else None
+            )
         if message.action == "describe_table":
-            return self.describe_table(message.payload["table_name"])
+            return self.describe_table(
+                message.payload["table_name"],
+                trace=trace if isinstance(trace, list) else None,
+            )
         raise ValueError(f"Acao A2A desconhecida para DiscoverSchema: {message.action}")
 
 

@@ -9,7 +9,8 @@ from __future__ import annotations
 
 from typing import Any, cast
 
-from agents.runtime import A2AMessage, Agent
+from agents.a2a_integration import A2AEnvelope
+from agents.runtime import Agent
 
 
 BUILD_DICTIONARY_INSTRUCTIONS = """
@@ -34,7 +35,7 @@ class BuildDictionaryService:
             "dictionary": [self._build_table_entry(table) for table in tables],
         }
 
-    def handle_a2a_message(self, message: A2AMessage) -> Any:
+    def handle_a2a_message(self, message: A2AEnvelope) -> Any:
         if message.action == "build_dictionary":
             return self.build_dictionary(
                 user_request=message.payload["user_request"],
